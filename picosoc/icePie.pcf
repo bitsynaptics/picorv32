@@ -1,0 +1,73 @@
+# 12 MHz clock
+set_io -nowarn clk        35
+
+# RS232
+set_io -nowarn rx          6
+set_io -nowarn tx          9
+
+# LEDs and Button
+set_io -nowarn btn1_n       10
+set_io -nowarn led_blue_n   11
+set_io -nowarn led_amber_n  37
+
+# RGB LED Driver
+set_io -nowarn led_rgb_red_n   40
+set_io -nowarn led_rgb_green_n 41
+set_io -nowarn led_rgb_blue_n  39
+
+# SPI Flash
+set_io -nowarn FLASH_SCK  15
+set_io -nowarn FLASH_SSB  16
+set_io -nowarn FLASH_IO0  14
+set_io -nowarn FLASH_IO1  17
+set_io -nowarn FLASH_IO2  12
+set_io -nowarn FLASH_IO3  13
+
+# PMOD 1 - Shared
+#set_io -nowarn P2_1       27 # enc_ch_a ^
+#set_io -nowarn P2_2       25 # oled_sda
+#set_io -nowarn P2_3       21 # sd_spi_miso ^
+#set_io -nowarn P2_4       19 # sd_spi_mosi ^
+#set_io -nowarn P2_7       26 # enc_ch_a ^
+#set_io -nowarn P2_8       23 # oled_scl
+#set_io -nowarn P2_9       20 # sd_spi_cs ^
+#set_io -nowarn P2_10      18 # sd_spi_sclk \/
+
+# PMOD 2 - Shared
+#set_io -nowarn P1B1       43 # enc_sw ^
+#set_io -nowarn P1B2       38 # esp32_gpio16
+#set_io -nowarn P1B3       34 # btn2_n ^
+#set_io -nowarn P1B4       31 # usb_dn
+#set_io -nowarn P1B7       42 # esp32_gpio17
+#set_io -nowarn P1B8       36 # esp32_gpio4
+#set_io -nowarn P1B9       32 # usb_dp
+#set_io -nowarn P1B10      28 # usb_pu
+
+# PMOD 3 - Unshared
+set_io -nowarn P1A1        4
+set_io -nowarn P1A2        2
+set_io -nowarn P1A3       47
+set_io -nowarn P1A4       45
+set_io -nowarn P1A7        3
+set_io -nowarn P1A8       48
+set_io -nowarn P1A9       46
+set_io -nowarn P1A10      44
+
+# Shared IOs - OLED, SD Card, Encoder, USB, Button 2, ESP32 GPIO
+set_io -nowarn oled_scl     23  
+set_io -nowarn oled_sda     25
+set_io -nowarn sd_spi_miso  21
+set_io -nowarn sd_spi_mosi  19
+set_io -nowarn sd_spi_cs    20
+set_io -nowarn sd_spi_sclk  18
+set_io -nowarn enc_sw       43
+set_io -nowarn enc_ch_a     26
+set_io -nowarn enc_ch_b     27
+set_io -nowarn usb_dp       31
+set_io -nowarn usb_dn       32
+set_io -nowarn usb_pu       28
+set_io -nowarn btn2_n       34
+set_io -nowarn esp32_gpio4  36
+set_io -nowarn esp32_gpio16 38 
+set_io -nowarn esp32_gpio17 42
+

@@ -18,32 +18,35 @@
  */
 
 `ifdef PICOSOC_V
-`error "icebreaker.v must be read before picosoc.v!"
+`error "icePie.v must be read before picosoc.v!"
 `endif
 
 `define PICOSOC_MEM ice40up5k_spram
 
-module icebreaker (
+module icePie (
 	input clk,
 
-	output ser_tx,
-	input ser_rx,
+	output tx,
+	input rx,
 
-	output led1,
-	output led2,
-	output led3,
-	output led4,
-	output led5,
+	output led_blue_n,
+	output led_amber_n,
+	output led_rgb_red_n,
+	output led_rgb_green_n,
+	output led_rgb_blue_n,
 
-	output ledr_n,
-	output ledg_n,
+	input btn1_n,
+	input btn2_n,
+	input enc_sw,
+	input enc_ch_a,
+	input enc_ch_b,
 
-	output flash_csb,
-	output flash_clk,
-	inout  flash_io0,
-	inout  flash_io1,
-	inout  flash_io2,
-	inout  flash_io3
+	output FLASH_SCK,
+	output FLASH_SSB,
+	inout  FLASH_IO0,
+	inout  FLASH_IO1,
+	inout  FLASH_IO2,
+	inout  FLASH_IO3
 );
 	parameter integer MEM_WORDS = 32768;
 
@@ -54,16 +57,13 @@ module icebreaker (
 		reset_cnt <= reset_cnt + !resetn;
 	end
 
-	wire [7:0] leds;
+	wire [5:0] leds;	
 
-	assign led1 = leds[1];
-	assign led2 = leds[2];
-	assign led3 = leds[3];
-	assign led4 = leds[4];
-	assign led5 = leds[5];
-
-	assign ledr_n = !leds[6];
-	assign ledg_n = !leds[7];
+	assign led_blue_n 		= !leds[1];
+	assign led_amber_n 		= !leds[2];
+	assign led_rgb_red_n 	= !leds[3];
+	assign led_rgb_green_n 	= !leds[4];
+	assign led_rgb_blue_n 	= !leds[5];
 
 	wire flash_io0_oe, flash_io0_do, flash_io0_di;
 	wire flash_io1_oe, flash_io1_do, flash_io1_di;
@@ -74,7 +74,7 @@ module icebreaker (
 		.PIN_TYPE(6'b 1010_01),
 		.PULLUP(1'b 0)
 	) flash_io_buf [3:0] (
-		.PACKAGE_PIN({flash_io3, flash_io2, flash_io1, flash_io0}),
+		.PACKAGE_PIN({FLASH_IO3, FLASH_IO2, FLASH_IO1, FLASH_IO0}),
 		.OUTPUT_ENABLE({flash_io3_oe, flash_io2_oe, flash_io1_oe, flash_io0_oe}),
 		.D_OUT_0({flash_io3_do, flash_io2_do, flash_io1_do, flash_io0_do}),
 		.D_IN_0({flash_io3_di, flash_io2_di, flash_io1_di, flash_io0_di})
@@ -116,11 +116,11 @@ module icebreaker (
 		.clk          (clk         ),
 		.resetn       (resetn      ),
 
-		.ser_tx       (ser_tx      ),
-		.ser_rx       (ser_rx      ),
+		.ser_tx       (tx      ),
+		.ser_rx       (rx      ),
 
-		.flash_csb    (flash_csb   ),
-		.flash_clk    (flash_clk   ),
+		.flash_csb    (FLASH_SSB   ),
+		.flash_clk    (FLASH_SCK   ),
 
 		.flash_io0_oe (flash_io0_oe),
 		.flash_io1_oe (flash_io1_oe),
